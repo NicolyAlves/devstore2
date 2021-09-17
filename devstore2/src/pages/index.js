@@ -1,12 +1,21 @@
-import { useState, useEffect } from 'react';
 import { Container } from './styled'
 import "./styled.js";
+
+import { useState, useEffect, useRef } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
+import LoadingBar from 'react-top-loading-bar'
 
 import Api from '../service/api.js';
 const api = new Api ();
 
 export default function App() {
-    
+
 
 const [ produtos, setProdutos ] = useState([]);
 const [ produto, setProduto ] = useState('');
@@ -19,6 +28,8 @@ const [ estoque, setEstoque ] = useState('');
 const [ imgproduto, setImgProduto ] = useState('');
 const [ idAlterando, setIdAlterando ] = useState(0);
 
+const loading = useRef(null);
+
 
 async function listar() {
     let r = await api.listar();
@@ -30,54 +41,82 @@ async function inserir(){
         let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
 
             if (r.erro)
-            alert(r.erro);
+            toast.error(r.erro);
             else
-            alert('💓 Produto inserido!');
+            toast.dark('💓 Produto inserido!');
     } else {
         let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
 
             if (r.erro)
-            alert(r.erro)
+            toast.error(r.erro)
             else
-            alert('💓 Produto Alterado!')
+            toast.dark('💓 Produto Alterado!')
     }
 
-    // limparCampos();
+    limparCampos();
     listar();
 }
 
 function limparCampos () { 
-    setProduto(''),
-    setCategoria(''), 
-    setPrecoDe(''), 
-    setPrecoPor(''), 
-    setAvaliacao(''), 
-    setDescProduto(''), 
-    setEstoque(''), 
-    setImgProduto(''),
+    setProduto('');
+    setCategoria('');
+    setPrecoDe('');
+    setPrecoPor(''); 
+    setAvaliacao(''); 
+    setDescProduto(''); 
+    setEstoque('');
+    setImgProduto('');
     setIdAlterando(0); 
 }
 
-async function remover (id) {
-    let r = await api.remover(id);
-    if (r.erro)
-        alert(`${r.erro}`);
-    else {
-        alert('💓 Produto removido!');
-        listar();
-    }
+
+async function remover(id) {
+    loading.current.continuousStart();
+    confirmAlert({
+        title: 'Remover produto',
+        message: `Tem certeza que deseja remover o produto ${id}?`,
+        buttons: [
+            {
+                label: 'Sim',
+                onClick: async () => {
+                    let r = await api.remover(id);
+                    if (r.erro)
+                        toast.error(`${r.erro}`);
+                    else {
+                        toast.dark('💓 Produto removido!');
+                        listar();
+                    }
+
+                }
+            },
+            {
+                label: 'Não'
+            }
+        ]
+    });
+
+
+    loading.current.complete();
 }
 
+
+
+
 async function editar (item) { 
-    setProduto(item.nm_produto), 
-    setCategoria(item.ds_categoria), 
-    setPrecoDe(item.vl_preco_de), 
-    setPrecoPor(item.vl_preco_por), 
-    setAvaliacao(item.vl_avaliacao), 
-    setDescProduto(item.ds_produto), 
-    setEstoque(item.qtd_estoque), 
-    setImgProduto(item.img_produto),
+    loading.current.continuousStart();
+
+    setProduto(item.nm_produto);
+    setCategoria(item.ds_categoria);
+    setPrecoDe(item.vl_preco_de);
+    setPrecoPor(item.vl_preco_por); 
+    setAvaliacao(item.vl_avaliacao); 
+    setDescProduto(item.ds_produto);
+    setEstoque(item.qtd_estoque);
+    setImgProduto(item.img_produto);
+
     setIdAlterando(item.id_produto);
+
+    loading.current.complete();
 }
 
 useEffect(() => {
@@ -86,6 +125,8 @@ useEffect(() => {
 
 return (
     <Container>
+        <ToastContainer />
+        <LoadingBar color="red" ref={loading}/>
      <div className="conteiner">
         <div className="barra-lateral">
             <div className="logo"><img src="../public/assets/images/logo.svg" alt=""/><div className="azul">Dev</div>Store</div>
