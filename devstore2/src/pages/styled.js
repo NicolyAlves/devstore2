@@ -1,0 +1,243 @@
+import styled from 'styled-components'
+
+const Container = styled.div` 
+
+
+        box-sizing: border-box;
+        margin: 0px;
+
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+
+    .conteiner {
+        background-color: #F5F5F5;
+
+        display: flex;
+        flex-direction: row;
+
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .tela-principal {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .barra-lateral {
+        background-color: #2B3031;
+
+        width: 18vw;
+        height: 150vh;
+        display: flex;
+        flex-direction: column;
+
+        position: sticky;
+    }
+
+    .logo {
+        display: flex;
+        flex-direction: row;
+
+        font-weight: 900;
+
+        margin: 2em;
+
+        color: white;
+    }
+
+    .azul{
+        color: #10EAEA;
+    }
+
+
+    .gerenciamento {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+
+    color: white;
+    margin-left: 0.5em;
+    margin-bottom: 1.4em;
+    align-items: center;
+    }
+
+    .gerenciamento img {
+        padding-left: 1.5em;
+    }
+
+
+
+    .produtos {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+        background-color: white;
+    }
+
+    .produtos p {
+        margin-left: 0.2em;
+
+        color:black;
+        font-weight: 600;
+    }
+
+
+
+    .cabecalho {
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+
+        width: 85vw;
+
+        height: 10vh;
+    }
+
+    .usuario {
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        margin-left: 1.5em;
+    }
+
+
+    .botoes-cab button {
+        border-radius: 50%;
+        border: none;
+        box-shadow: none;
+        padding: 0.5em 0.8em;
+        background-color: #119FDC;
+    }
+    .botoes-cab {
+        margin: 0.5em 0.5em 0.5em 0.5em;
+    }
+    .botoes-cab img {
+        margin-top: 0.5em;
+    }
+
+
+
+
+        /* novo produto */
+        .novo-produto, .produto-cadastrado {
+            margin: 1.5em;
+            padding: 1.5em;
+            background-color: white;
+        }
+
+        .bn-titulo, .bc-titulo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            margin-bottom: 2em;
+        }
+
+        .bn-titulo, .bc-titulo p {
+            color: black;
+
+            font-size: 1.2em;
+            font-weight: 700;
+            padding-left: 0.5em;
+        }
+
+        
+
+
+        .lado-lado {
+            display: flex;
+            flex-direction: row;
+
+            font-weight: 700;
+        }
+
+        .direita, .esquerdo {
+            display: flex;
+            flex-direction: column;
+
+            color: #615858;
+        }
+
+        .direita {
+            margin-right: 4em;
+            width: 30vw;
+            margin-bottom: -1em;
+        }
+
+        .direita div {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 2.4em;
+        }
+
+        .esquerdo div {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1.5em;
+        }
+
+        .baixo div {
+            display: flex;
+            flex-direction: row;
+
+            width: 75%;
+            font-weight: 700;
+            margin-bottom: 1em;
+            color:#615858;
+        }
+        .baixo input{
+            margin-left:-1.6em;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        thead {
+            background-color: #6CC3DF;
+            border:none;
+        }
+
+        th {
+            color: white;
+            padding: 0.8em 1.7em;
+        }
+
+        td {
+            padding: 0.8em 2.6em;
+
+        }
+
+        hr {
+            height: 5vh;
+            border: none;
+            background-color: #262626;
+            margin-bottom: 1.5em;
+        }
+        input {
+            width: 90%;
+            height: 2em;
+            border-radius: 5px;
+            border: 1px solid rgb(43, 43, 43);
+            box-shadow: none;
+        }
+        textarea {
+            width: 67%;
+            resize: none;
+        }
+        form {
+            width: 90%;
+        }
+
+`
+
+export { Container }
