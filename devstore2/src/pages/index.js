@@ -174,13 +174,16 @@ return (
                         <div className="bc-titulo"><img src="../public/assets/images/Rectangle 14.svg"alt=""/><p>Produtos Cadastrados</p></div>
                         <table className="tabela">
                             <thead>
-                                    <th></th>
-                                    <th>ID</th>
-                                    <th>Produto</th>
-                                    <th>Categoria</th>
-                                    <th>Preço</th>
-                                    <th>Estoque</th>
-                                
+                                    <tr>
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>Produto</th>
+                                        <th>Categoria</th>
+                                        <th>Preço</th>
+                                        <th>Estoque</th>
+                                        <th className="coluna-acao"> </th>
+                                        <th className="coluna-acao"> </th>
+                                    </tr>
                             </thead>
                             <tbody>
                               {produtos.map((item, i) =>
