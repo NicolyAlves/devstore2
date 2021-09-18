@@ -130,7 +130,7 @@ return (
      <div className="conteiner">
         <div className="barra-lateral">
             <div className="logo"><img src="../public/assets/images/logo.svg" alt=""/><div className="azul">Dev</div>Store</div>
-            <div style="height: 5vh"></div>
+            <div style={{height: '5vh'}}></div>
             <div className="gerenciamento">
                 Gerenciamento <img src="../public/assets/images/Vectorssdsadsa.svg" alt=""/>
             </div>
@@ -150,7 +150,7 @@ return (
                 </div>
 
                     <div className="novo-produto">
-                        <div className="bn-titulo"><img src="../public/assets/images/Rectangle 14.svg"alt=""/><p style="margin-left: 0.5em;">{idAlterando == 0 ? 'Novo Produto' : 'Alterando Produto' + idAlterando}</p></div>
+                        <div className="bn-titulo"><img src="../public/assets/images/Rectangle 14.svg"alt=""/><p style={{marginLeft: "0.5em"}} > {idAlterando == 0 ? 'Novo Produto' : 'Alterando Produto' + idAlterando}</p></div>
                         <form>
                             <div className="lado-lado">
                                 <div className="direita">   
@@ -167,7 +167,7 @@ return (
                             <div className="baixo">
                                 <div>Link Imagem:<input type="text"/></div>
                             </div>
-                            <div style="font-weight: 700; color: #615858;" >Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea style="border: 1px solid rgb(43, 43, 43);border-radius: 5px;" value={descproduto} onChange={e => setDescProduto(e.target.value)}></textarea><button style="background-color: #119FDC; border:none; padding: 0.8em;margin-left: 1em;border-radius: 20px;color:white;font-weight: 700;" onClick={inserir}> {idAlterando == 0 ? 'Cadastrar' : 'Alterar'}</button></div>
+                            <div style={{fontWeight: "700", color: "#615858" }}>Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea style={{border: "1px solid rgb(43, 43, 43)", borderRadius: "5px"}} value={descproduto} onChange={e => setDescProduto(e.target.value)}></textarea><button style={{backgroundColor: "#119FDC", border:"none", padding: "0.8em", marginLeft: "1em", borderRadius: "20px", color: "white", fontWeight:"700" }} onClick={inserir}> {idAlterando == 0 ? 'Cadastrar' : 'Alterar'}</button></div>
                         </form>
                     </div>
                     <div className="produto-cadastrado">

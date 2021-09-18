@@ -1,7 +1,7 @@
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Produtos from './src/pages/index';
+import Produtos from './pages/conteudo.js';
 
 
 export default function Routes() {
