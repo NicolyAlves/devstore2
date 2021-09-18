@@ -18,6 +18,7 @@ export default function App() {
 
 
 const [ produtos, setProdutos ] = useState([]);
+
 const [ produto, setProduto ] = useState('');
 const [ categoria, setCategoria ] = useState('');
 const [ precode, setPrecoDe ] = useState('') ;
@@ -36,17 +37,17 @@ async function listar() {
     setProdutos(r);
 }
 
-async function inserir(){
+async function inserirProduto(){
     if(idAlterando == 0) {
         let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
-
+        console.log(r);
             if (r.erro)
-            toast.error(r.erro);
+            toast.dark(r.erro);
             else
             toast.dark('💓 Produto inserido!');
     } else {
         let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
-
+        console.log(r)
             if (r.erro)
             toast.error(r.erro)
             else
@@ -54,6 +55,7 @@ async function inserir(){
     }
 
     limparCampos();
+    console.log("passou pelo limpar")
     listar();
 }
 
@@ -121,7 +123,7 @@ async function editar (item) {
 
 useEffect(() => {
     listar();
-}, {})
+}, [])
 
 return (
     <Container>
@@ -154,20 +156,20 @@ return (
                         <form>
                             <div className="lado-lado">
                                 <div className="direita">   
-                                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nome:&nbsp;<input type="text" value={produto} onChange={e => setProduto(e.target.value)}/></div>
-                                    <div>Categoria:&nbsp;<input type="text" value={categoria} onChange={e => setCategoria(e.target.value)}/></div>
-                                    <div>Avaliação:&nbsp;<input type="text" value={avaliacao} onChange={e => setAvaliacao(e.target.value)}/></div>
+                                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nome:&nbsp;<input type="text" value={produto} onChange={(e) => setProduto(e.target.value)}/></div>
+                                    <div>Categoria:&nbsp;<input type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)}/></div>
+                                    <div>Avaliação:&nbsp;<input type="text" value={avaliacao} onChange={(e) => setAvaliacao(e.target.value)}/></div>
                                 </div>
                                 <div className="esquerdo">
-                                    <div>Preço DE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value={precode} onChange={e => setPrecoDe(e.target.value)}/></div>
-                                    <div>Preço POR:&nbsp;&nbsp;<input type="text" value={precopor} onChange={e => setPrecoPor(e.target.value)}/></div>
-                                    <div>Estoque:&nbsp;&nbsp;<input type="text" value={estoque} onChange={e => setEstoque(e.target.value)}/></div>
+                                    <div>Preço DE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value={precode} onChange={(e) => setPrecoDe(e.target.value)}/></div>
+                                    <div>Preço POR:&nbsp;&nbsp;<input type="text" value={precopor} onChange={(e) => setPrecoPor(e.target.value)}/></div>
+                                    <div>Estoque:&nbsp;&nbsp;<input type="text" value={estoque} onChange={(e) => setEstoque(e.target.value)}/></div>
                                 </div>
                             </div>
                             <div className="baixo">
-                                <div>Link Imagem:<input type="text"/></div>
+                                <div>Link Imagem:<input type="text" value={imgproduto} onChange={(e) => setImgProduto(e.target.value)}/></div>
                             </div>
-                            <div style={{fontWeight: "700", color: "#615858" }}>Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea style={{border: "1px solid rgb(43, 43, 43)", borderRadius: "5px"}} value={descproduto} onChange={e => setDescProduto(e.target.value)}></textarea><button style={{backgroundColor: "#119FDC", border:"none", padding: "0.8em", marginLeft: "1em", borderRadius: "20px", color: "white", fontWeight:"700" }} onClick={inserir}> {idAlterando == 0 ? 'Cadastrar' : 'Alterar'}</button></div>
+                        <div style={{fontWeight: "700", color: "#615858" }}>Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea type="text" style={{border: "1px solid rgb(43, 43, 43)", borderRadius: "5px"}} value={descproduto} onChange={(e) => setDescProduto(e.target.value)}></textarea><button style={{backgroundColor: "#119FDC", border:"none", padding: "0.8em", marginLeft: "1em", borderRadius: "20px", color: "white", fontWeight:"700" }} onClick={inserirProduto}> {idAlterando == 0 ? 'Cadastrar' : 'Alterar'}</button></div>
                         </form>
                     </div>
                     <div className="produto-cadastrado">
@@ -186,7 +188,7 @@ return (
                                     </tr>
                             </thead>
                             <tbody>
-                              {produtos.map((item, i) => (
+                              {produtos.map((item, i) => 
                                 <tr className={ i % 2 == 0 ? "linha-alternada" : ""}>
                                     <td title={item.img_produto}>
                                         <img src={item.img_produto} alt="" style={{ height:'48px', width: '40px' }}/>
@@ -201,10 +203,10 @@ return (
                                     <td>{item.qtd_estoque}</td>
 
                                     <td className="bonito"><button  onClick={() => editar(item) }><img src="../public/assets/images/editar.svg" alt=""/></button></td>
-                                    <td className="bonito"><button  onClick={() => remover(item.id_produto) }><img src="../public/assets/images/lixo.svg" alt=""/></button></td>
-                                    
-                              </tr>
-                              ))}
+                                    <td className="bonito"><button  onClick={() => remover(item.id_produto) }><img src="../public/assets/images/lixo.svg" alt=""/></button></td>    
+                                </tr>
+                              )}
+
                             </tbody> 
                         </table>
                         
