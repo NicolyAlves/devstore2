@@ -2,8 +2,10 @@ import axios from 'axios'
 const api = axios.create({
     baseURL: 'http://localhost:3030'
 })
+
 export default class Api {
-    async listar () {
+
+    async listar () {       // ok
         let r = await api.get(`/produto/`);
         return r.data;
     }
@@ -34,6 +36,4 @@ export default class Api {
         let r = await api.put(`/produto/` + id, {produto, categoria, preco_de, preco_por, avaliacao, descproduto, estoque, imgproduto});
         return r.data;
     }
-
-
 }

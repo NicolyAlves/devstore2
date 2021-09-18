@@ -19,18 +19,18 @@ app.get('/produto', async (req, resp) => {
 
 app.post('/produto', async (req, resp) => {
     try {
-
-        let { produto, categoria, preco_de, preco_por, avaliacao, descproduto, estoque, imgproduto, ativo } = req.body;
+        let { produto, categoria, preco_de, preco_por, avaliacao, descproduto, estoque, imgproduto, ativo, inclusao } = req.body;
 
         if(produto == "") {
-            return resp.send({erro: 'O campo Nome é obrigatório'})
+            return resp.send({erro: 'O campo Nome é obrigatório'});
         }
         if(categoria == "") {
-            return resp.send({erro: 'O campo Categoria é obrigatório'})
+            return resp.send({erro: 'O campo Categoria é obrigatório'});
         }
         if(avaliacao == "") {
-            return resp.send({erro: 'O campo Avaliação é obrigatório'})
+            return resp.send({erro: 'O campo Avaliação é obrigatório'});
         }
+
         if(isNaN(avaliacao)) {
             return resp.send({erro: 'O campo Avaliação não pode ter letras como valor'});
         }
@@ -57,6 +57,8 @@ app.post('/produto', async (req, resp) => {
             return resp.send({erro: 'O campo Estoque é obrigatório'})
         }
        
+
+
         if(isNaN(preco_de) || preco_de < 0) {
             return resp.send({erro: 'O campo Preço DE está inválido'});
         }
@@ -70,12 +72,6 @@ app.post('/produto', async (req, resp) => {
         }
        
 
-        let valido  = await db.tb_produto.findOne({ where: {nm_produto: produto}});
-        if(valido != null) {
-            return resp.send({erro: 'Produto já existe!'});
-        }
-
-
         let r = await db.tb_produto.create({
             nm_produto: produto,
             ds_categoria: categoria,
@@ -85,12 +81,17 @@ app.post('/produto', async (req, resp) => {
             ds_produto: descproduto,
             qtd_estoque: estoque,
             img_produto: imgproduto,
-            bt_ativo: ativo
+            bt_ativo: ativo,
+            dt_inclusao: inclusao
         })
         resp.send(r);
     } catch (e) {
         resp.send({erro: e.toString()});
     }
+        let valido  = await db.tb_produto.findOne({ where: {nm_produto: produto} });
+        if (valido != null) {
+            return resp.send({erro: 'Produto já existe!'});
+        }    
 })
 
 

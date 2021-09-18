@@ -38,28 +38,33 @@ async function listar() {
 }
 
 async function inserirProduto(){
-    if(idAlterando == 0) {
-        let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
-        console.log(r);
-            if (r.erro)
-            toast.dark(r.erro);
-            else
-            toast.dark('💓 Produto inserido!');
-    } else {
-        let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
-        console.log(r)
-            if (r.erro)
-            toast.error(r.erro)
-            else
-            toast.dark('💓 Produto Alterado!')
-    }
+    console.log('help2');
 
-    limparCampos();
-    console.log("passou pelo limpar")
-    listar();
+    if (idAlterando === 0) {
+        let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
+        console.log('help')
+
+            if (r.erro) {
+            toast.dark(r.erro);
+            } else
+            toast.dark('💓 Produto inserido!');
+            }
+            else {
+            console.log('roi bodia')
+            let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descproduto, estoque, imgproduto);
+            
+            if (r.erro){
+            toast.error(r.erro);
+            } else {
+            toast.dark('💓 Produto Alterado!');
+            }
+        }
+        limparCampos();
+        console.log("passou pelo limpar")
+        listar();
 }
 
-function limparCampos () { 
+const limparCampos = () => { 
     setProduto('');
     setCategoria('');
     setPrecoDe('');
@@ -69,7 +74,7 @@ function limparCampos () {
     setEstoque('');
     setImgProduto('');
     setIdAlterando(0); 
-}
+};
 
 
 async function remover(id) {
@@ -118,12 +123,14 @@ async function editar (item) {
 
     setIdAlterando(item.id_produto);
 
+    console.log(item);
+
     loading.current.complete();
 }
 
 useEffect(() => {
     listar();
-}, [])
+}, []);
 
 return (
     <Container>
@@ -152,7 +159,7 @@ return (
                 </div>
 
                     <div className="novo-produto">
-                        <div className="bn-titulo"><img src="../public/assets/images/Rectangle 14.svg"alt=""/><p style={{marginLeft: "0.5em"}} > {idAlterando == 0 ? 'Novo Produto' : 'Alterando Produto' + idAlterando}</p></div>
+                        <div className="bn-titulo"><img src="../public/assets/images/Rectangle 14.svg"alt=""/><p style={{marginLeft: "0.5em"}} > {idAlterando === 0 ? 'Novo Produto' : 'Alterando Produto' + idAlterando}</p></div>
                         <form>
                             <div className="lado-lado">
                                 <div className="direita">   
@@ -169,7 +176,8 @@ return (
                             <div className="baixo">
                                 <div>Link Imagem:<input type="text" value={imgproduto} onChange={(e) => setImgProduto(e.target.value)}/></div>
                             </div>
-                        <div style={{fontWeight: "700", color: "#615858" }}>Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea type="text" style={{border: "1px solid rgb(43, 43, 43)", borderRadius: "5px"}} value={descproduto} onChange={(e) => setDescProduto(e.target.value)}></textarea><button style={{backgroundColor: "#119FDC", border:"none", padding: "0.8em", marginLeft: "1em", borderRadius: "20px", color: "white", fontWeight:"700" }} onClick={inserirProduto}> {idAlterando == 0 ? 'Cadastrar' : 'Alterar'}</button></div>
+                        <div style={{fontWeight: "700", color: "#615858" }}>Descrição:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea type="text" style={{border: "1px solid rgb(43, 43, 43)", borderRadius: "5px"}} value={descproduto} onChange={(e) => setDescProduto(e.target.value)}></textarea>
+                        <button style={{backgroundColor: "#119FDC", border:"none", padding: "0.8em", marginLeft: "1em", borderRadius: "20px", color: "white", fontWeight:"700" }} onClick={inserirProduto}> {idAlterando === 0 ? 'Cadastrar' : 'Alterar'}</button></div>
                         </form>
                     </div>
                     <div className="produto-cadastrado">
@@ -189,7 +197,7 @@ return (
                             </thead>
                             <tbody>
                               {produtos.map((item, i) => 
-                                <tr className={ i % 2 == 0 ? "linha-alternada" : ""}>
+                                <tr className={ i % 2 === 0 ? "linha-alternada" : ""}>
                                     <td title={item.img_produto}>
                                         <img src={item.img_produto} alt="" style={{ height:'48px', width: '40px' }}/>
                                     </td>
